@@ -52,44 +52,44 @@ A fully custom login system built in **Laravel** without using any pre-built aut
 ## Setup Instructions
 
 1. Clone the repository:
-git clone <repository-url>
-cd <project-directory>
+- git clone <repository-url>
+- cd <project-directory>
 
 2. Install dependencies
-composer install
-npm install
-npm run dev
+- composer install
+- npm install
+- npm run dev
 
 3. Configure .env file:
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=your_database
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=your_database
+- DB_USERNAME=your_username
+- DB_PASSWORD=your_password
 
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=your_mailtrap_username
-MAIL_PASSWORD=your_mailtrap_password
-MAIL_ENCRYPTION=null
+- MAIL_MAILER=smtp
+- MAIL_HOST=smtp.mailtrap.io
+- MAIL_PORT=2525
+- MAIL_USERNAME=your_mailtrap_username
+- MAIL_PASSWORD=your_mailtrap_password
+- MAIL_ENCRYPTION=null
 
 4. Run migrations:
-php artisan migrate
+- php artisan migrate
 
 5. Start the server:
-php artisan serve
+- php artisan serve
 
 ## Security Considerations
-Password Hashing: All passwords are hashed with bcrypt.
-CAPTCHA: Prevents automated login/registration attacks.
-Rate Limiting: Protects against brute-force attacks.
-Single Session Enforcement: Prevents concurrent logins from multiple devices.
-Secure Password Reset: Tokens expire after a set time to prevent unauthorized access.
+- Password Hashing: All passwords are hashed with bcrypt.
+- CAPTCHA: Prevents automated login/registration attacks.
+- Rate Limiting: Protects against brute-force attacks.
+- Single Session Enforcement: Prevents concurrent logins from multiple devices.
+- Secure Password Reset: Tokens expire after a set time to prevent unauthorized access.
 
 ## Future Enhancements
-Two-factor authentication (2FA) for additional security.
-Logging and monitoring failed login attempts.
-Implementing social logins (Google, Facebook, etc.).
-Enhanced front-end UI with Vue.js or React.
+- Two-factor authentication (2FA) for additional security.
+- Logging and monitoring failed login attempts.
+- Implementing social logins (Google, Facebook, etc.).
+- Enhanced front-end UI with Vue.js or React.
