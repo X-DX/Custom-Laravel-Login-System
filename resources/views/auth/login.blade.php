@@ -26,7 +26,7 @@
         
         <x-auth.login-header title="Sign In" subtitle="Enter your credentials" />
 
-        <form class="login-form" id="loginForm" method="POST" action="{{ route('login.post') }}" novalidate>
+        <form class="login-form" id="loginForm" method="POST" action="{{ route('login.post') }}" onsubmit="encrypt(event)" novalidate>
         @csrf
             
             <x-auth.form-input type="email" id="email" name="email" label="Email" autocomplete="email" />
@@ -133,3 +133,23 @@
     </form>
 @endif
 
+
+<script>
+    async function encrypt(event){
+        event.preventDefault(); // Prevent default submission
+        const pwd = document.getElementById("password");
+        const form = document.getElementById("loginForm");
+        
+        // Hash with SHA-512
+        const hash = await sha512(pwd.value);
+        pwd.value = hash;
+
+        form.submit();
+    }
+
+    async function sha512(str) {
+    const buffer = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(str));
+    const hashArray = Array.from(new Uint8Array(buffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+</script>

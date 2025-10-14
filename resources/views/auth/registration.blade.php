@@ -9,7 +9,7 @@
         
         <x-auth.login-header title="Registration" subtitle="Enter your credentials" />
 
-        <form action="{{ route('register.post') }}" method="POST" class="login-form" id="loginForm" novalidate>
+        <form action="{{ route('register.post') }}" method="POST" class="login-form" id="loginForm" onsubmit="encryptform(event)" novalidate>
         @csrf
             @if(session('error'))
                 <div class="alert alert-danger">
@@ -91,4 +91,24 @@
             }
         });
     });
+
+    async function encryptform(event){
+        event.preventDefault(); // Prevent default submission
+
+        const pwd = document.getElementById("password");
+        const cpwd = document.getElementById("password_confirmation");
+        const form = document.getElementById("loginForm");
+        
+        // Hash with SHA-512
+        const hash = await sha512(pwd.value);
+        pwd.value = hash;
+        cpwd.value = hash;
+        form.submit();
+    }
+
+    async function sha512(str) {
+        const buffer = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(str));
+        const hashArray = Array.from(new Uint8Array(buffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
 </script>

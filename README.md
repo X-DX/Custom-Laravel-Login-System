@@ -42,6 +42,15 @@ A fully custom login system built in **Laravel** without using any pre-built aut
 - Limits the number of login attempts within a given timeframe.
 - Provides user-friendly error messages after exceeding the limit.
 
+### 9. Password Encrypted
+- Passwords are first hashed with SHA-512 in the frontend so the raw password never travels over the network.
+- The Laravel backend then applies bcrypt (Hash::make()) to the received SHA-512 hash before storing it in the database.
+- During login, the same SHA-512 process runs in the frontend, and Laravel verifies it using Hash::check().
+- password → SHA-512 (frontend) → bcrypt (Laravel) → stored in DB
+- This ensures the raw password is never exposed while still maintaining strong server-side security.
+
+### 10. Password and confirm pasword must be 1 Uppercase, 1 lowercase, special charecter, 1 number, and lenght must be min 8 charecters.
+
 ## Tech Stack
 
 - **Backend**: Laravel (PHP)

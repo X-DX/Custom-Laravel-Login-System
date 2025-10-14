@@ -90,9 +90,15 @@ class CustomAuthController extends Controller
         $credentials = $request->only('email','password');
         $remember = $request->has('remember');
 
+        // ⚙️ Retrieve user manually
+        $user = \App\Models\User::where('email', $request->email)->first();
+
         // First, check if the credentials are valid
-        if (Auth::validate($credentials)) {
-            $user = \App\Models\User::where('email', $request->email)->first();
+        // if (Auth::validate($credentials)) {
+        if ($user && \Hash::check($request->password, $user->password)) {  // ⚙️ check bcrypt(SHA512(password))
+            // $user = \App\Models\User::where('email', $request->email)->first();
+            // ⚙️ If you still want to reuse Auth::login() safely
+            Auth::login($user, $remember);
 
             // If the user already has another active session, block and ask to force login
             if ($user->session_id && $user->session_id !== Session::getId()) {
@@ -108,8 +114,8 @@ class CustomAuthController extends Controller
             }
 
             // Otherwise attempt login normally
-            if (Auth::attempt($credentials, $remember)) {
-                $user = Auth::user();
+            // if (Auth::attempt($credentials, $remember)) {
+                // $user = Auth::user();
 
                 // Login successful → clear rate limiter
                 RateLimiter::clear($key);
@@ -123,7 +129,7 @@ class CustomAuthController extends Controller
                 DB::table('sessions')->where('id', Session::getId())->update(['user_id' => $user->id]);
 
                 return redirect()->intended('dashboard')->withSuccess('You have successfully logged in.');
-            }
+            // }
         }
 
         // If invalid credentials → increment failed attempt count
