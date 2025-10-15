@@ -78,7 +78,7 @@ A fully custom login system built in **Laravel** without using any pre-built aut
 - DB_USERNAME=your_username
 - DB_PASSWORD=your_password
 
-- MAIL_MAILER=smtp
+- MAIL_MAILER=smtp or log 
 - MAIL_HOST=smtp.mailtrap.io
 - MAIL_PORT=2525
 - MAIL_USERNAME=your_mailtrap_username
