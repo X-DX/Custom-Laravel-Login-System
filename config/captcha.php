@@ -2,16 +2,21 @@
 
 return [
     'disable' => env('CAPTCHA_DISABLE', false),
-    'characters' => ['2', '3', '4', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'm', 'n', 'p', 'q', 'r', 't', 'u', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'M', 'N', 'P', 'Q', 'R', 'T', 'U', 'X', 'Y', 'Z'],
     'default' => [
-        'length' => 4,
-        'width' => 120,
-        'height' => 36,
-        'quality' => 90,
+        'length' => 6,  // 6 chars = still secure but readable
+        'width' => 200, // more horizontal space
+        'height' => 50, // taller for better visibility
+        'quality' => 100, // high image quality
         'math' => false,
-        'characters'=> '0123456789',
-        'expire' => 60,
+        'characters'=> '2346789ABCDEFGHJKLMNPQRTUXYZ', // exclude confusing chars like 0, O, I, l
+        'sensitive' => true,
+        'expire' => 120,    // give user more time
         'encrypt' => false,
+        'bgColor' => '#ffffff',       // pure white background
+        'fontColors' => ['#000000'],  // solid black text
+        'lines' => 2,                 // minimal lines for clarity
+        'contrast' => 0,              // neutral contrast
+        'bgImage' => false,           // no background noise
     ],
     'math' => [
         'length' => 9,

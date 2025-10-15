@@ -40,15 +40,24 @@ class CustomAuthController extends Controller
     public function postRegistration(Request $request): RedirectResponse{
 
         // Validate required fields
-        $request->validate([
+        $validated = $request->validate([
             'username' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed|min:6',
+            'captcha'  => 'required|captcha',
         ]);
 
         // Create the new user
-        $data = $request->all();
-        $user = $this->create($data);
+        // $data = $request->all();
+        // $user = $this->create($data);
+
+        // Create the user using the validated data only
+        $user = User::create([
+            'username' => $validated['username'],
+            'email'    => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
+        
 
         // Log in the new user
         Auth::login($user);
@@ -57,8 +66,19 @@ class CustomAuthController extends Controller
         $user->session_id = session()->getId();
         $user->save();
 
-        return redirect("dashboard")->withsuccess('Great! You have successfully loggin');
+        return redirect("dashboard")->withsuccess('Great! You have successfully logged in.');
     }
+
+    /**
+     * Create a new user instance (used in registration).
+     */
+    // public function create(array $data){
+    //     return User::create([
+    //         'username' => $data['username'],
+    //         'email' => $data['email'],
+    //         'password' => Hash::make($data['password'])
+    //     ]);
+    // }
 
     /**
      * Handle login request with captcha and single-session validation.
@@ -147,17 +167,6 @@ class CustomAuthController extends Controller
             return view('/auth/dashboard');
         }
         return redirect("login")->withSuccess('Opps! you do not have access');
-    }
-
-    /**
-     * Create a new user instance (used in registration).
-     */
-    public function create(array $data){
-        return User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
-        ]);
     }
 
     /**

@@ -50,6 +50,7 @@ A fully custom login system built in **Laravel** without using any pre-built aut
 - This ensures the raw password is never exposed while still maintaining strong server-side security.
 
 ### 10. Password and confirm pasword must be 1 Uppercase, 1 lowercase, special charecter, 1 number, and lenght must be min 8 charecters.
+- using JS
 
 ## Tech Stack
 

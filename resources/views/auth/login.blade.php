@@ -43,18 +43,21 @@
                 </span>
             @enderror
 
-            <div>                
-                <label for="captcha">Captcha</label>
-                <div class="captcha form-group">
-                    <span>{!! captcha_img() !!}</span>
-                    <button type="button" id="reload">↻</button>
+            <div class="mb-3">
+                <label for="captcha" class="form-label">Captcha</label>
+                <div class="captcha d-flex align-items-center mb-2">
+                    <span class="me-2">{!! captcha_img() !!}</span>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="reload">
+                    ↻
+                    </button>
                 </div>
-                <input type="text" name="captcha" required>
+                <input type="text" class="form-control" name="captcha" placeholder="Enter Captcha" required>
+
                 @error('captcha')
-                    <span class="alert alert-danger">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror                
+                    <div class="text-danger mt-1">
+                    <strong>{{ $message }}</strong>
+                    </div>
+                @enderror
             </div>
 
             <div class="form-options">
